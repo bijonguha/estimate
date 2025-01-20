@@ -16,7 +16,7 @@ from src.logger import setup_logger
 from src.rag_utils import (create_vectorstore, retrieve_relevant_chunks,
                            load_vectorstore_metadata, save_vectorstore_metadata)
 from src.llm_utils import generate_response, generate_structured_response
-from src.datamodels import FeatureResponse
+from src.datamodels import FeatureResponse, QuerySimple
 
 LOGGER = setup_logger(__name__)
 
@@ -28,15 +28,15 @@ def get_app() -> FastAPI:
     """
     try:
         fast_app = FastAPI(
-                title="Jira Copilot Backend",
-                description="A simple FastAPI backend for Mr. Agile application.")
+                title="EstiMATE",
+                description="A simple FastAPI backend for easy estimation of Software Requirements")
         return fast_app
     except Exception as e:
         LOGGER.error('exception occured in get_app() - {0}'.format(e))
 
 app = get_app()
 
-@app.get("/health", tags=["health"])
+@app.get("/health", tags=["Health"])
 async def health_check(request: Request):
     """
     Health check endpoint
@@ -44,7 +44,7 @@ async def health_check(request: Request):
     return {"status": 200}
 
 
-@app.post("/upload_pdf/")
+@app.post("/upload_pdf/", tags=["Data Management"])
 async def upload_pdf(file: UploadFile = File(...)):
     vectorstore_id = str(uuid.uuid4())
     session_directory = f"src/vec_db/vectorstores/{vectorstore_id}"
@@ -60,28 +60,43 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     return JSONResponse(content={"message": "PDF uploaded and vectorstore created successfully.", "vectorstore_id": vectorstore_id}, status_code=200)
 
-@app.post("/query_llm/")
-async def query_llm(query: str = Form(...), vectorstore_id: Optional[str] = Form(None)):
+@app.post("/query_llm/", tags=["LLM Querying"])
+async def query_llm(input_data : QuerySimple):
+    
+    LOGGER.debug(f"Query received in query_llm - {input_data}")
+    
+    query = input_data.query
+    vectorstore_id = input_data.vectorstore_id
+
     context = ""
 
     if vectorstore_id:
+
         if vectorstore_id not in vectorstores_metadata:
+            LOGGER.error(f"Invalid vectorstore_id. Please provide a valid ID.")
             return JSONResponse(content={"error": "Invalid vectorstore_id. Please provide a valid ID."}, status_code=400)
+
+        LOGGER.debug(f"Vectorstore location - {vectorstores_metadata[vectorstore_id]}")
 
         # Load vectorstore dynamically from disk
         vectorstore_directory = vectorstores_metadata[vectorstore_id]
         client = chromadb.PersistentClient(path=vectorstore_directory)
         collection_name = vectorstore_id
         collection = client.get_collection(name=collection_name)
-
+        LOGGER.debug(f"Chroma client with collection name - {collection_name} loaded")
         relevant_chunks = retrieve_relevant_chunks(query, collection)
         context = "\n".join(relevant_chunks)
+        LOGGER.debug(f"Relevant chunks found from vector store - {relevant_chunks}")
 
     response = generate_response(query, context)
     return JSONResponse(content={"response": response.content}, status_code=200)
 
-@app.post("/generate_subtasks/")
-async def generate_subtasks(feature_details: str = Form(...), vectorstore_id: Optional[str] = Form(None)):
+@app.post("/generate_subtasks/", tags=["LLM Querying"])
+async def generate_subtasks(input_data : QuerySimple):
+
+    feature_details = input_data.query
+    vectorstore_id = input_data.get(vectorstore_id, None)
+
     context = ""
 
     if vectorstore_id:
