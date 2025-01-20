@@ -89,13 +89,14 @@ async def query_llm(input_data : QuerySimple):
         LOGGER.debug(f"Relevant chunks found from vector store - {relevant_chunks}")
 
     response = generate_response(query, context)
+
     return JSONResponse(content={"response": response.content}, status_code=200)
 
 @app.post("/generate_subtasks/", tags=["LLM Querying"])
 async def generate_subtasks(input_data : QuerySimple):
 
     feature_details = input_data.query
-    vectorstore_id = input_data.get(vectorstore_id, None)
+    vectorstore_id = input_data.vectorstore_id
 
     context = ""
 
