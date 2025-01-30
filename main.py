@@ -7,16 +7,18 @@ import os
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from fastapi import FastAPI, File, UploadFile, Form
-from typing import Optional
+from fastapi import FastAPI, File, UploadFile
 
 import chromadb
 
 from src.logger import setup_logger
+
 from src.rag_utils import (create_vectorstore, retrieve_relevant_chunks,
                            load_vectorstore_metadata, save_vectorstore_metadata)
-from src.llm_utils import generate_response, generate_structured_response
-from src.datamodels import FeatureResponse, QuerySimple
+
+from src.llm_utils import generate_response, generate_structured_response, gather_results
+
+from src.datamodels import FeatureResponse, QuerySimple, ResponseFile
 
 LOGGER = setup_logger(__name__)
 
@@ -44,8 +46,10 @@ async def health_check(request: Request):
     return {"status": 200}
 
 
-@app.post("/upload_pdf/", tags=["Data Management"])
+@app.post("/upload_pdf/", tags=["Data Management"],
+          response_model=ResponseFile)
 async def upload_pdf(file: UploadFile = File(...)):
+
     vectorstore_id = str(uuid.uuid4())
     session_directory = f"src/vec_db/vectorstores/{vectorstore_id}"
     os.makedirs(session_directory, exist_ok=True)
@@ -54,11 +58,15 @@ async def upload_pdf(file: UploadFile = File(...)):
     with open(pdf_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    vectorstore = create_vectorstore(pdf_path, session_directory)
+    create_vectorstore(pdf_path, session_directory)
+    LOGGER.debug(f"Vector store created for file : {file.filename}")
+
     vectorstores_metadata[vectorstore_id] = session_directory
     save_vectorstore_metadata(vectorstores_metadata)
 
-    return JSONResponse(content={"message": "PDF uploaded and vectorstore created successfully.", "vectorstore_id": vectorstore_id}, status_code=200)
+    resp = {"vectorstore_id":vectorstore_id}
+    LOGGER.debug(f"File generated response - {resp}")
+    return resp
 
 @app.post("/query_llm/", tags=["LLM Querying"])
 async def query_llm(input_data : QuerySimple):
@@ -100,7 +108,7 @@ async def generate_subtasks(input_data : QuerySimple):
 
     context = ""
 
-    if vectorstore_id:
+    if vectorstore_id == None:
         if vectorstore_id not in vectorstores_metadata:
             return JSONResponse(content={"error": "Invalid vectorstore_id. Please provide a valid ID."}, status_code=400)
 
@@ -122,3 +130,37 @@ async def generate_subtasks(input_data : QuerySimple):
     response = generate_structured_response(prompt, context, FeatureResponse)
 
     return JSONResponse(content=response.dict(), status_code=200)
+
+@app.post("/esimate_quality/", tags=["LLM Querying"])
+async def estimate_quality(input_data : QuerySimple):
+
+    feature_details = input_data.query
+    vectorstore_id = input_data.vectorstore_id
+
+    context = ""
+
+    if vectorstore_id == None:
+        if vectorstore_id not in vectorstores_metadata:
+            return JSONResponse(content={"error": "Invalid vectorstore_id. Please provide a valid ID."}, status_code=400)
+
+        # Load vectorstore dynamically from disk
+        vectorstore_directory = vectorstores_metadata[vectorstore_id]
+        client = chromadb.PersistentClient(path=vectorstore_directory)
+        collection_name = vectorstore_id
+        collection = client.get_collection(name=collection_name)
+
+        relevant_chunks = retrieve_relevant_chunks(feature_details, collection)
+        context = "\n".join(relevant_chunks)
+
+        additional_context_path = r"src/prompts_template/context_doc.txt"
+
+        with open(additional_context_path, "r") as f:
+            additional_context_prompt = f.read()
+
+        additional_context = additional_context_prompt.replace("{ADDITIONAL_CONTEXT}", context)
+
+        feature_details = additional_context.replace("{STORY_DESC}", feature_details)
+
+    response = gather_results(feature_details)
+
+    return JSONResponse(content=response, status_code=200)

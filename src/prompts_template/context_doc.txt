@@ -1,0 +1,7 @@
+{STORY_DESC}
+
+## Additional Context from the project
+
+You are being provided this extra context from the project document. Please validate your given suggestions and feedback against these information wherever applicable
+
+{ADDITIONAL_CONTEXT}

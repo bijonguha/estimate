@@ -2,7 +2,7 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
-def setup_logger(name="jira_app", log_level: str="INFO") -> logging.Logger:
+def setup_logger(name="jira_app", log_level: str="DEBUG") -> logging.Logger:
     """
     Set up a logger with a rotating file handler and a stream handler.
     

@@ -1,0 +1,28 @@
+You will be given Story description and Testing scenarios below, You have to generate acceptance criteria for it.
+
+## Instructions
+
+1. Understand the story from the given story description
+2. Understand the testing criterias given
+3. Based on Information of story description, testing criterias and standard acceptance criteria design framework, create measurable and actionable acceptance criterias
+
+Story description: {STORY_DESC}
+
+Testing Criterias : {TEST_CRIT}
+
+## Output format
+
+Please provide the response in the exact format below without additional code blocks or text. The output will be directly parsed in Python, so ensure it strictly adheres to this format:
+
+[ # list of dictionaries
+    { 
+        "Title": title of the acceptance criteria goes here, 
+        "Description": description of the acceptance criteria goes here
+    },
+    { 
+        "Title": title of the acceptance criteria goes here, 
+        "Description": description of the acceptance criteria goes here
+    }
+]
+
+Do not include any additional text, comments, or code blocks. Return only the list of dictionaries in the specified format.

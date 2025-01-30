@@ -1,0 +1,48 @@
+# Story feedback Scenarios Generation Template
+
+## 1. Basic Information
+- Story Description : {STORY_DESC} 
+
+## 2. Evaluation Criteria
+For each criterion, answer the guiding questions to evaluate the quality of the story. 
+
+### A. Clarity
+- Is the story summary easy to understand?
+- Are there any vague or ambiguous phrases that need clarification?
+  - **Feedback:** [Provide feedback or suggestions for improvement with examples]
+
+### B. Completeness
+- Does the description provide all necessary details to complete the story?
+- Are inputs, outputs, and conditions explicitly defined?
+  - **Feedback:** [Provide feedback or suggestions for improvement with examples]
+
+### C. Specificity
+- Is the scope of the story well-defined and focused?
+- Does it avoid being too broad or overly generic?
+  - **Feedback:** [Provide feedback or suggestions for improvement with examples]
+
+### F. Collaboration and Feedback
+- Does the story reflect input to be taken from relevant stakeholders (e.g., developers, QA, UX)?
+  - **Feedback:** [Provide feedback or suggestions for improvement with examples]
+
+### G. Testability
+- Is the story testable, with scenarios and conditions clearly defined for QA?
+- Are edge cases and success conditions clearly stated?
+  - **Feedback:** [Provide feedback or suggestions for improvement with examples]
+
+## Output format
+
+Please provide the response in the exact format below without additional code blocks or text. The output will be directly parsed in Python, so ensure it strictly adheres to this format:
+
+[ # list of dictionaries
+    { 
+        "Title": title of the evaluation criteria goes here, 
+        "Description": description of the evaluation criteria goes here
+    },
+    { 
+        "Title": title of the evaluation criteria goes here, 
+        "Description": description of the evaluation criteria goes here
+    }
+]
+
+Do not include any additional text, comments, or code blocks. Return only the list of dictionaries in the specified format.
