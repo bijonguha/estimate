@@ -20,12 +20,12 @@ azllm = AzureChatOpenAI(
     temperature=0.5
 )
 
-opllm = ChatOpenAI(
-    model="gpt-4o",
-    temperature=0.5
-)
+# opllm = ChatOpenAI(
+#     model="gpt-4o",
+#     temperature=0.5
+# )
 
-llm = opllm
+llm = azllm
 
 def generate_response(query, context):
 

@@ -9,70 +9,70 @@ Please evaluate the technical aspects of the given feature requirement in terms 
 - **What functionality or behavior is expected from the system?**  
 - **Why is this feature needed? What problem does it solve?**
 
-#### 2. **Assess the Story Size**
+#### 2. **Assess the Story Size
 - **Is this a small, medium, or complex story?**  
   - **Small Story**: Minor UI/UX changes, bug fixes, or simple functionality (e.g., text updates, UI changes).  
   - **Medium Story**: API integrations, data storage, or moderate backend changes.  
   - **Complex Story**: New modules, third-party integrations, significant architectural changes, or large-scale system modifications.
 - **Please explain why the story is categorized as small, medium, or complex.**
 
-#### 3. **Evaluate Technical Completeness**
+#### 3. **Evaluation Criteria
 Based on the story's size (small, medium, or complex), evaluate whether the following technical aspects are addressed:
 
-##### **System Architecture**
+##### A. System Architecture
 - Does the feature require changes to the system architecture (e.g., new microservices, database changes)?
 - Is the system’s existing architecture impacted by this feature?
 - **Feedback**: If architecture details are missing, describe the necessary components or services.
 
-##### **API & Data Interactions**
+##### B. API & Data Interactions
 - Are API endpoints, data payloads, and responses defined?
 - Is data validation or error handling for API calls described?
 - **Feedback**: If API details are missing, describe the necessary endpoints, data formats, and error handling mechanisms.
 
-##### **Authentication & Security**
+##### C. Authentication & Security
 - Are authentication and authorization needs defined (e.g., OAuth, JWT, role-based access control)?
 - Are encryption and data protection requirements mentioned?
 - **Feedback**: If security details are missing, recommend appropriate authentication methods or encryption practices.
 
-##### **Performance & Scalability**
+##### D. Performance & Scalability
 - Are performance requirements (e.g., response times, concurrency) defined?
 - Is the system expected to handle high traffic or large amounts of data? If so, are scalability measures discussed?
 - **Feedback**: If performance or scalability is not mentioned, suggest caching, load balancing, or database optimization.
 
-##### **Error Handling & Edge Cases**
+##### E. Error Handling & Edge Cases
 - Are error handling and failure scenarios mentioned (e.g., API failures, invalid inputs)?
 - Are edge cases considered (e.g., extreme weather data, failed external API calls)?
 - **Feedback**: If error handling is missing, suggest common failure scenarios and required behavior.
 
-##### **Dependencies & Integrations**
+##### F. Dependencies & Integrations
 - Are dependencies on third-party services, APIs, or other systems clearly defined?
 - Are there any external services required for the feature (e.g., weather data API, notification services)?
 - **Feedback**: If dependencies are not mentioned, list potential external services or libraries.
 
-##### **Platform Compatibility**
+##### G. Platform Compatibility
 - Does the feature support specific platforms (e.g., mobile, desktop, browsers)?
 - Is cross-platform compatibility mentioned (e.g., iOS, Android, Chrome, Firefox)?
 - **Feedback**: If compatibility details are missing, suggest the supported platforms.
 
-##### **Logging & Monitoring**
+##### H. Logging & Monitoring
 - Does the feature require logging for system health or user activity tracking?
 - Are monitoring tools mentioned for tracking performance or errors (e.g., Datadog, ELK stack)?
 - **Feedback**: If logging or monitoring is missing, suggest the required logging framework or monitoring solution.
 
-##### **Deployment & Infrastructure**
+##### I. Deployment & Infrastructure
 - Are deployment strategies or infrastructure changes discussed (e.g., cloud provider, containerization, CI/CD pipelines)?
 - Does the feature require any special deployment considerations (e.g., AWS Lambda, Kubernetes)?
 - **Feedback**: If deployment details are missing, describe the necessary infrastructure or deployment pipeline.
 
-##### **Testability & Automation**
+##### J. Testability & Automation
 - Are there clear test cases and validation criteria (e.g., unit tests, integration tests, QA validation)?
 - Are edge cases and success conditions defined for testing?
 - **Feedback**: If testability is not addressed, suggest necessary tests or automation strategies.
 
-### **Steps for LLM Evaluation**
+### **Steps to be for LLM Evaluation based on criteria given :**
 1. **Input Analysis**: Parse the given story and extract core functionality, user expectations, and dependencies.
 2. **Story Size Assessment**: Classify the story as **small**, **medium**, or **complex** based on the scope and expected technical involvement.
-3. **Technical Completeness Evaluation**: Review each technical criterion (API, security, architecture, etc.) based on the story’s size, providing feedback or suggestions for missing details.
+3. **Technical Completeness Evaluation**: Review each technical criterion (API, security, architecture, etc.) only wherever its necessary based on the story’s size
 4. **Feedback Generation**: Provide feedback with suggestions for missing or unclear technical aspects, ensuring the feature is implementable and testable.
 
 ## Output format

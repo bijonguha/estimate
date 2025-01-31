@@ -131,8 +131,10 @@ async def generate_subtasks(input_data : QuerySimple):
 
     return JSONResponse(content=response.dict(), status_code=200)
 
-@app.post("/esimate_quality/", tags=["LLM Querying"])
-async def estimate_quality(input_data : QuerySimple):
+@app.post("/refine_requirements/", tags=["LLM Querying"])
+async def refine_requirement(input_data : QuerySimple):
+
+    LOGGER.debug(f"Query received in refine_requirement - {input_data}")
 
     feature_details = input_data.query
     vectorstore_id = input_data.vectorstore_id
@@ -151,6 +153,29 @@ async def estimate_quality(input_data : QuerySimple):
 
         relevant_chunks = retrieve_relevant_chunks(feature_details, collection)
         context = "\n".join(relevant_chunks)
+        
+@app.post("/estimate_quality/", tags=["LLM Querying"])
+async def estimate_quality(input_data : QuerySimple):
+
+    LOGGER.debug(f"Query received in estimate_quality - {input_data}")
+    feature_details = input_data.query
+    vectorstore_id = input_data.vectorstore_id
+
+    context = ""
+
+    if vectorstore_id != None and vectorstore_id != "":
+        if vectorstore_id not in vectorstores_metadata:
+            return JSONResponse(content={"error": "Invalid vectorstore_id. Please provide a valid ID."}, status_code=400)
+
+        LOGGER.debug(f"Vectorstore location - {vectorstores_metadata[vectorstore_id]}")
+        # Load vectorstore dynamically from disk
+        vectorstore_directory = vectorstores_metadata[vectorstore_id]
+        client = chromadb.PersistentClient(path=vectorstore_directory)
+        collection_name = vectorstore_id
+        collection = client.get_collection(name=collection_name)
+
+        relevant_chunks = retrieve_relevant_chunks(feature_details, collection)
+        context = "\n".join(relevant_chunks)
 
         additional_context_path = r"src/prompts_template/context_doc.txt"
 
@@ -160,7 +185,10 @@ async def estimate_quality(input_data : QuerySimple):
         additional_context = additional_context_prompt.replace("{ADDITIONAL_CONTEXT}", context)
 
         feature_details = additional_context.replace("{STORY_DESC}", feature_details)
+        LOGGER.debug(f"Additional context injected, New query - {feature_details}")
 
     response = gather_results(feature_details)
+
+    LOGGER.info(f"Final response - {response}")
 
     return JSONResponse(content=response, status_code=200)

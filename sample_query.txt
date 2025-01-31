@@ -1,3 +1,103 @@
 As a Product Owner, I want to integrate a FastAPI backend with authentication into the existing React weather website, so that users can securely access weather data, receive storm predictions, and manage their alarm settings.
 
 593aee4f-3970-4335-a87e-eef29d1568af
+
+{
+  "query": "As a Tech Asset Manager, I want to see the live drone footage on my dashboard (UI Integration). This story is for completion of all pending activities for the integration of the live drone footage services developed by Java team with the appropriate drones in the Tech Asset Manager personas.The drone footage should be live streamed in the deep dive page of that drone If the drone is not flying, its last recorded video should be shown in the deep dive screen. ",
+  "vectorstore_id": "f4ce6152-01ed-4967-93d4-f86baae58c6a"
+}
+
+
+```
+## Story Quality Assessment Template
+
+## 1. Basic Information
+- Story Title & Description : {STORY_DESC}
+
+## 2. Evaluation Criteria
+For each criterion, answer the guiding questions to evaluate the quality of the story. 
+
+### A. Clarity
+- Is the story summary easy to understand?
+- Are there any vague or ambiguous phrases that need clarification?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+### B. Completeness
+- Does the description provide all necessary details to complete the story?
+- Are inputs, outputs, and conditions explicitly defined?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+### C. Specificity
+- Is the scope of the story well-defined and focused?
+- Does it avoid being too broad or overly generic?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+### D. Dependency Tracking
+- Are all dependencies (on other stories, teams, or resources) clearly identified?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+### E. Technical and Functional Details
+- Are all necessary technical and functional requirements included?
+- Are specific details provided for development and testing?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+### F. Collaboration and Feedback
+- Does the story reflect input from relevant stakeholders (e.g., developers, QA, UX)?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+### G. Testability
+- Is the story testable, with scenarios and conditions defined for QA?
+- Are edge cases and success conditions clearly stated?
+  - **Feedback:** [Provide feedback or suggestions for improvement]
+
+## Output format
+
+Collect all the feedbacks and return response in a structured form 
+[ # list of dictionaries
+  {
+    "Title": title of the evaluation criteria goes here, 
+    "Description": description of the evaluation criteria goes here,
+  }
+] 
+```
+
+```
+# Testing Scenarios Generation Template
+
+## **Prompt**
+
+*"I need you to generate a comprehensive set of testing scenarios for the feature described in the user story below. Follow these structured guidelines to ensure thorough testing coverage across various aspects of functionality and performance."*
+
+## **Guidelines**
+
+1. **Generate Testing Scenarios**:
+   - **Authentication** (if applicable): Include scenarios for login, logout, token expiry, and unauthorized access.
+   - **Core Functionality**: Detail scenarios for the main feature functionality described in the user story.
+   - **Negative Testing**: Test cases to handle invalid inputs, edge cases, or unexpected user behaviors.
+   - **Boundary Testing**: Test scenarios for input limits, thresholds, and corner cases.
+   - **Integration**: Verify how the feature integrates with other systems, modules, or APIs.
+   - **Non-functional Testing**:
+     - **Performance**: Evaluate the feature under stress, load, and concurrency.
+     - **Security** (if applicable): Ensure vulnerabilities are addressed, and sensitive data is handled securely.
+     - **Usability**: Confirm the feature is user-friendly and intuitive.
+     - **Compatibility**: Test across different devices, browsers, and screen sizes.
+
+2. **Exploratory Testing**:
+   - Suggest scenarios to test for unanticipated behaviors, interactions, or errors.
+
+3. **Measure criticality**
+   - Assign criticality to each tests suggested out of must-have, good-to-have, exploratory 
+## **User Story Description**
+As a Product Owner, I want to integrate a FastAPI backend with authentication into the existing React weather website, so that users can securely access weather data, receive storm predictions, and manage their alarm settings.
+
+
+**Additional Notes**:
+- Consider edge cases, dependencies, and any assumptions based on the user story.
+- Focus on the balance between happy path scenarios and edge cases to ensure robustness.
+
+## Output format
+Give result in this format
+{"Title": title of the test goes here, 
+ "Description": description of the test goes here,
+ "Criticality": criticality of the test goes here}
+```
