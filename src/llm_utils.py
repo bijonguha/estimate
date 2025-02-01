@@ -35,6 +35,14 @@ def generate_response(query, context):
     LOGGER.debug(f"Response generated - {response}")
     return response
 
+def generate_response_for_query(query):
+
+    LOGGER.debug(f"Query received - {query}")
+    response_full = llm(query)
+    response = response_full.content
+    LOGGER.debug(f"Response generated - {response}")
+    return response
+
 def generate_structured_response(query, context, dm):
     LOGGER.debug(f"Query received - {query} with context - {context}")
     str_llm = llm.with_structured_output(dm)

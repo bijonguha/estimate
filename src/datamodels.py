@@ -26,7 +26,7 @@ class QuerySimple(BaseModel):
 
 class QueryFeature(BaseModel):
     query : str
-    vectorstore_id : Optional[str] = None
+    vectorstore_id : str
 
 class ResponseFile(BaseModel):
     vectorstore_id : str

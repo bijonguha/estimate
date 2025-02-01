@@ -16,9 +16,9 @@ from src.logger import setup_logger
 from src.rag_utils import (create_vectorstore, retrieve_relevant_chunks,
                            load_vectorstore_metadata, save_vectorstore_metadata)
 
-from src.llm_utils import generate_response, generate_structured_response, gather_results
+from src.llm_utils import generate_response, generate_structured_response, gather_results, generate_response_for_query
 
-from src.datamodels import FeatureResponse, QuerySimple, ResponseFile
+from src.datamodels import FeatureResponse, QuerySimple, ResponseFile, QueryFeature
 
 LOGGER = setup_logger(__name__)
 
@@ -51,7 +51,7 @@ async def health_check(request: Request):
 async def upload_pdf(file: UploadFile = File(...)):
 
     vectorstore_id = str(uuid.uuid4())
-    session_directory = f"src/vec_db/vectorstores/{vectorstore_id}"
+    session_directory = f"vec_db/vectorstores/{vectorstore_id}"
     os.makedirs(session_directory, exist_ok=True)
     pdf_path = os.path.join(session_directory, file.filename)
 
@@ -132,7 +132,7 @@ async def generate_subtasks(input_data : QuerySimple):
     return JSONResponse(content=response.dict(), status_code=200)
 
 @app.post("/refine_requirements/", tags=["LLM Querying"])
-async def refine_requirement(input_data : QuerySimple):
+async def refine_requirement(input_data : QueryFeature):
 
     LOGGER.debug(f"Query received in refine_requirement - {input_data}")
 
@@ -141,18 +141,30 @@ async def refine_requirement(input_data : QuerySimple):
 
     context = ""
 
-    if vectorstore_id == None:
-        if vectorstore_id not in vectorstores_metadata:
-            return JSONResponse(content={"error": "Invalid vectorstore_id. Please provide a valid ID."}, status_code=400)
+    if vectorstore_id not in vectorstores_metadata:
+        return JSONResponse(content={"error": "Invalid vectorstore_id. Please provide a valid ID."}, status_code=400)
 
-        # Load vectorstore dynamically from disk
-        vectorstore_directory = vectorstores_metadata[vectorstore_id]
-        client = chromadb.PersistentClient(path=vectorstore_directory)
-        collection_name = vectorstore_id
-        collection = client.get_collection(name=collection_name)
+    # Load vectorstore dynamically from disk
+    vectorstore_directory = vectorstores_metadata[vectorstore_id]
+    client = chromadb.PersistentClient(path=vectorstore_directory)
+    collection_name = vectorstore_id
+    collection = client.get_collection(name=collection_name)
 
-        relevant_chunks = retrieve_relevant_chunks(feature_details, collection)
-        context = "\n".join(relevant_chunks)
+    relevant_chunks = retrieve_relevant_chunks(feature_details, collection)
+    context = "\n".join(relevant_chunks)
+
+    story_ref_tmp_path = r"src/prompts_template/story_ref.txt"
+
+    with open(story_ref_tmp_path, "r") as f:
+        story_ref_prompt = f.read()
+
+    story_ref_prompt = story_ref_prompt.replace("{FEAT_REQ}", feature_details)
+    story_ref_prompt = story_ref_prompt.replace("{ADD_CONTX}", context)
+
+    response = generate_response_for_query(story_ref_prompt)
+
+    return JSONResponse(content=response, status_code=200)
+
         
 @app.post("/estimate_quality/", tags=["LLM Querying"])
 async def estimate_quality(input_data : QuerySimple):

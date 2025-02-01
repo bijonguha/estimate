@@ -12,6 +12,7 @@ vectorstore_metadata_file = Constants.VECSTORE_PATH.value
 
 # Load vectorstore metadata
 def load_vectorstore_metadata():
+
     """Load existing vectorstore metadata from a file."""
     try:
         if os.path.exists(vectorstore_metadata_file):

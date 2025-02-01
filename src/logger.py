@@ -25,7 +25,7 @@ def setup_logger(name="jira_app", log_level: str="DEBUG") -> logging.Logger:
     os.makedirs("logs", exist_ok=True)
     
     # Create a rotating file handler
-    file_handler = RotatingFileHandler("logs/jira_app.log", maxBytes=1024 * 1024 * 5, backupCount=5)
+    file_handler = RotatingFileHandler("logs/estimate_app.log", maxBytes=1024 * 1024 * 5, backupCount=5)
     file_handler.setLevel(log_level)
     file_handler.setFormatter(log_format)
     
