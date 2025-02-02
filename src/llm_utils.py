@@ -3,6 +3,12 @@ from langchain_openai import AzureChatOpenAI
 from langchain_openai import ChatOpenAI
 import pandas as pd
 
+from src.constant import Constants
+
+import mlflow
+mlflow.set_tracking_uri(Constants.MLFLOW_URI.value)
+mlflow.langchain.autolog()
+
 from src.logger import setup_logger
 LOGGER = setup_logger(__name__)
 
@@ -38,10 +44,10 @@ def generate_response(query, context):
 def generate_response_for_query(query):
 
     LOGGER.debug(f"Query received - {query}")
-    response_full = llm(query)
+    response_full = llm.invoke(query)
     response = response_full.content
     LOGGER.debug(f"Response generated - {response}")
-    return response
+    return eval(response).get("refined_story", None)
 
 def generate_structured_response(query, context, dm):
     LOGGER.debug(f"Query received - {query} with context - {context}")
