@@ -1,0 +1,18 @@
+# Requirements refining prompt
+
+You are given a feature requirement which will be used to create agile stories. 
+You will be provided wih additional context, you have to refine this story. 
+Keep in mind that donot add any additional requirement while refining this story
+
+# Fature Requirements
+{FEAT_REQ}
+
+# Additional context
+{ADD_CONTX}
+
+# Output format
+Please return the output in the following format:
+
+{{
+    "refined_story": "{{refined story goes here}}"
+}} 
