@@ -5,10 +5,6 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from src.logger import setup_logger
 from src.constant import Constants
-from langsmith import traceable
-
-import mlflow
-from mlflow.entities import SpanType
 
 LOGGER = setup_logger(__name__)
 
@@ -72,10 +68,6 @@ def create_vectorstore(pdf_path: str, persist_directory: str):
         LOGGER.error(f"Failed to create vectorstore: {e}")
         raise
 
-mlflow.set_tracking_uri(Constants.MLFLOW_URI.value)
-mlflow.langchain.autolog()
-
-@mlflow.trace(span_type=SpanType.RETRIEVER)
 def retrieve_relevant_chunks(query, chroma_collection, top_k=5):
     """Retrieve top-k relevant chunks for a given query from the vectorstore."""
     try:

@@ -5,9 +5,9 @@ import pandas as pd
 
 from src.constant import Constants
 
-import mlflow
-mlflow.set_tracking_uri(Constants.MLFLOW_URI.value)
-mlflow.langchain.autolog()
+# import mlflow
+# mlflow.set_tracking_uri(Constants.MLFLOW_URI.value)
+# mlflow.langchain.autolog()
 
 from src.logger import setup_logger
 LOGGER = setup_logger(__name__)

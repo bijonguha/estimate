@@ -11,11 +11,7 @@ from fastapi import FastAPI, File, UploadFile
 
 import chromadb
 
-from src.mlflow_manager import MLflowLogger
-
 from langchain.prompts.chat import ChatPromptTemplate
-
-from src.constant import Constants
 
 from src.logger import setup_logger
 
@@ -27,8 +23,6 @@ from src.llm_utils import generate_response, generate_structured_response, gathe
 from src.datamodels import FeatureResponse, QuerySimple, ResponseFile, QueryFeature
 
 LOGGER = setup_logger(__name__)
-# mlflow_logger = MLflowLogger(tracking_uri=Constants.MLFLOW_URI.value,
-#                              experiment_name="EstiMATE-Logging")
 
 vectorstores_metadata = load_vectorstore_metadata()
 
@@ -169,17 +163,7 @@ async def refine_requirement(input_data : QueryFeature):
     story_ref_prompt = ChatPromptTemplate.from_template(story_ref_prompt)
     story_ref_message = story_ref_prompt.invoke({"FEAT_REQ":feature_details, "ADD_CONTX":context})
 
-    # story_ref_prompt = story_ref_prompt.replace("{FEAT_REQ}", feature_details)
-    # story_ref_prompt = story_ref_prompt.replace("{ADD_CONTX}", context)
-
     response = generate_response_for_query(story_ref_message)
-
-    # mlflow_logger.log_query(
-    #     query=feature_details,
-    #     prompt=story_ref_message,
-    #     retriever=relevant_chunks,
-    #     llm_resp={"refined_story": response}
-    # )
 
     return JSONResponse(content=response, status_code=200)
 

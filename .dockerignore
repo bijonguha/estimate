@@ -1,0 +1,51 @@
+# Ignore Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Ignore environment & dependencies
+env/
+venv/
+*.egg-info/
+*.dist-info/
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Ignore logs & temp files
+logs/
+*.log
+*.tmp
+*.bak
+
+# Ignore Git & IDE files
+.git/
+.gitignore
+*.iml
+.idea/
+.vscode/
+
+# Ignore MLflow & experiment logs
+mlruns/
+mlflow.db
+
+# Ignore Docker-related files
+Dockerfile
+docker-compose.yml
+*.dockerignore
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+vec_db/
+artefacts/
+esti_env/
+mlartifacts/
+mlruns/
+notebooks/
+.env
+.gitignore
