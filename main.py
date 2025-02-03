@@ -34,7 +34,9 @@ def get_app() -> FastAPI:
     try:
         fast_app = FastAPI(
                 title="EstiMATE",
-                description="A simple FastAPI backend for easy estimation of Software Requirements")
+                description="A simple FastAPI backend for easy estimation of Software Requirements",
+                root_path="/api/"
+                )
         return fast_app
     except Exception as e:
         LOGGER.error('exception occured in get_app() - {0}'.format(e))
