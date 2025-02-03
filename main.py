@@ -8,6 +8,7 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 
 import chromadb
 
@@ -39,6 +40,13 @@ def get_app() -> FastAPI:
         LOGGER.error('exception occured in get_app() - {0}'.format(e))
 
 app = get_app()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with specific domains for better security
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 @app.get("/health", tags=["Health"])
 async def health_check(request: Request):
