@@ -163,9 +163,9 @@ def gather_results(query):
     accept_flag, accept = acceptance_criteria(query, testing_cases)
 
     final_response = {
-        "testing_cases": testing_cases,
         "func_gaps": func_gaps,
         "tech_gaps": tech_gaps,
+        "testing_cases": testing_cases,
         "accept": accept
     }
 
