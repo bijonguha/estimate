@@ -1,31 +1,42 @@
-# Testing Scenarios Generation Template
+Here is a Story description provided by project solution architect.
+You are the cheif tester in house.
 
-## **Prompt**
+## **User Story Description**
+{STORY_DESC}
 
-*"I need you to generate a comprehensive set of testing scenarios for the feature described in the user story below. Follow these structured guidelines to ensure thorough testing coverage across various aspects of functionality and performance."*
+Please follow the given instructions below. 
+
+### 1. **Understand the Feature Requirement**
+- **Who is the user for this feature?**  
+- **What functionality or behavior is expected from the system?**  
+- **Why is this feature needed? What problem does it solve?**
+
+## Generation of Test Cases
+You job is to very carefully Understand the requirements, the context of the project and generate testing scenarios and test cases
 
 ## **Guidelines**
 
 1. **Generate Testing Scenarios**:
-   - **Authentication** (if applicable): Include scenarios for login, logout, token expiry, and unauthorized access.
+   - **Authentication** (if it is surely applicable here in this scenario): Include scenarios for login, logout, token expiry, and unauthorized access.
    - **Core Functionality**: Detail scenarios for the main feature functionality described in the user story.
-   - **Negative Testing**: Test cases to handle invalid inputs, edge cases, or unexpected user behaviors.
-   - **Boundary Testing**: Test scenarios for input limits, thresholds, and corner cases.
-   - **Integration**: Verify how the feature integrates with other systems, modules, or APIs.
+   - **Negative Testing**: Test cases to handle invalid inputs, edge cases, or unexpected user behaviors. Carefully think about edge cases
+   - **Boundary Testing**: Test scenarios for input limits, thresholds, and corner cases. Carefully think about edge cases
+   - **Integration**: Verify how the feature integrates with other systems, modules, or APIs. Carefully think about edge cases
    - **Non-functional Testing**:
      - **Performance**: Evaluate the feature under stress, load, and concurrency.
-     - **Security** (if applicable): Ensure vulnerabilities are addressed, and sensitive data is handled securely.
+     - **Security** (if it is surely applicable here in this scenario): Ensure vulnerabilities are addressed, and sensitive data is handled securely.
      - **Usability**: Confirm the feature is user-friendly and intuitive.
      - **Compatibility**: Test across different devices, browsers, and screen sizes.
+
+Can you now carefully go through criterias and Please remove any criteria :
+1. which is not necessary here.
+2. Where you have low confidence or just a general comment.
 
 2. **Exploratory Testing**:
    - Suggest scenarios to test for unanticipated behaviors, interactions, or errors.
 
 3. **Measure criticality**
    - Assign criticality to each tests suggested out of must-have, good-to-have, exploratory 
-
-## **User Story Description**
-{STORY_DESC}
 
 **Additional Notes**:
 - Consider edge cases, dependencies, and any assumptions based on the user story.

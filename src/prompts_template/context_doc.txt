@@ -1,4 +1,4 @@
-{STORY_DESC}
+Story Description - {STORY_DESC}
 
 ## Additional Context from the project
 

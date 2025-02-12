@@ -1,23 +1,25 @@
+Here is a Story description provided by project solution architect.
+You are a very experienced exterprise solution architect. 
+
 ### Feature Requirement:
 {STORY_DESC}
 
-### Evaluation Steps for Technical Aspects:
-Please evaluate the technical aspects of the given feature requirement in terms of the following criteria. Each step should be explained in detail, and where applicable, suggestions for improvement should be provided.
+Please follow the given instructions below. 
 
-#### 1. **Understand the Feature Requirement**
+### 1. **Understand the Feature Requirement**
 - **Who is the user for this feature?**  
 - **What functionality or behavior is expected from the system?**  
 - **Why is this feature needed? What problem does it solve?**
 
-#### 2. **Assess the Story Size
+### 2. **Assess the Story Size
 - **Is this a small, medium, or complex story?**  
   - **Small Story**: Minor UI/UX changes, bug fixes, or simple functionality (e.g., text updates, UI changes).  
-  - **Medium Story**: API integrations, data storage, or moderate backend changes.  
+  - **Medium Story**: ai/ml model building, API integrations, data storage, or moderate backend changes.  
   - **Complex Story**: New modules, third-party integrations, significant architectural changes, or large-scale system modifications.
 - **Please explain why the story is categorized as small, medium, or complex.**
 
-#### 3. **Evaluation Criteria
-Based on the story's size (small, medium, or complex), evaluate whether the following technical aspects are addressed:
+### 3. **Evaluation Criteria
+Based on the story's size (small, medium, or complex) and above context, your job is to evaluate whether the following technical aspects are addressed:
 
 ##### A. System Architecture
 - Does the feature require changes to the system architecture (e.g., new microservices, database changes)?
@@ -25,17 +27,20 @@ Based on the story's size (small, medium, or complex), evaluate whether the foll
 - **Feedback**: If architecture details are missing, describe the necessary components or services.
 
 ##### B. API & Data Interactions
+- First of all think if there is any api related task will be involved here ? if not necessary then skip this
 - Are API endpoints, data payloads, and responses defined?
 - Is data validation or error handling for API calls described?
 - **Feedback**: If API details are missing, describe the necessary endpoints, data formats, and error handling mechanisms.
 
 ##### C. Authentication & Security
+- First of all think if there is any Authentication & Security related task will be involved here ? if not necessary then skip this
 - Are authentication and authorization needs defined (e.g., OAuth, JWT, role-based access control)?
 - Are encryption and data protection requirements mentioned?
 - **Feedback**: If security details are missing, recommend appropriate authentication methods or encryption practices.
 
 ##### D. Performance & Scalability
-- Are performance requirements (e.g., response times, concurrency) defined?
+- First of all think if there is any Performance & Scalability related task will be involved here ? if not necessary then skip this
+- Are performance requirements (e.g., response times, concurrency) defined? 
 - Is the system expected to handle high traffic or large amounts of data? If so, are scalability measures discussed?
 - **Feedback**: If performance or scalability is not mentioned, suggest caching, load balancing, or database optimization.
 
@@ -45,21 +50,22 @@ Based on the story's size (small, medium, or complex), evaluate whether the foll
 - **Feedback**: If error handling is missing, suggest common failure scenarios and required behavior.
 
 ##### F. Dependencies & Integrations
-- Are dependencies on third-party services, APIs, or other systems clearly defined?
+- Are dependencies on third-party services, APIs, or other systems clearly defined? if not necessary then skip this
 - Are there any external services required for the feature (e.g., weather data API, notification services)?
 - **Feedback**: If dependencies are not mentioned, list potential external services or libraries.
 
 ##### G. Platform Compatibility
-- Does the feature support specific platforms (e.g., mobile, desktop, browsers)?
+- Does the feature support specific platforms (e.g., mobile, desktop, browsers)? if not necessary then skip this
 - Is cross-platform compatibility mentioned (e.g., iOS, Android, Chrome, Firefox)?
 - **Feedback**: If compatibility details are missing, suggest the supported platforms.
 
 ##### H. Logging & Monitoring
-- Does the feature require logging for system health or user activity tracking?
+- Does the feature require logging for system health or user activity tracking? if not necessary then skip this
 - Are monitoring tools mentioned for tracking performance or errors (e.g., Datadog, ELK stack)?
 - **Feedback**: If logging or monitoring is missing, suggest the required logging framework or monitoring solution.
 
 ##### I. Deployment & Infrastructure
+- First of all think if there is any Deployment related task will be involved here ? if not necessary then skip this
 - Are deployment strategies or infrastructure changes discussed (e.g., cloud provider, containerization, CI/CD pipelines)?
 - Does the feature require any special deployment considerations (e.g., AWS Lambda, Kubernetes)?
 - **Feedback**: If deployment details are missing, describe the necessary infrastructure or deployment pipeline.
@@ -76,6 +82,11 @@ Based on the story's size (small, medium, or complex), evaluate whether the foll
 4. **Feedback Generation**: Provide feedback with suggestions for missing or unclear technical aspects, ensuring the feature is implementable and testable.
 
 ## Output format
+
+Please make the responses short, crisp and on to the point. 
+Please remove any criteria :
+1. which is not necessary here.
+2. Where you have low confidence or just a general comment.
 
 Please provide the response in the exact format below without additional code blocks or text. The output will be directly parsed in Python, so ensure it strictly adheres to this format:
 

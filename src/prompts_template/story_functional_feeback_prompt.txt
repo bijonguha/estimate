@@ -1,10 +1,16 @@
-# Story feedback Scenarios Generation Template
+Here is a Story description provided by a Non Technical product owner. 
+His job is to give detailed product related requirements to be taken as story. 
+You are a very experienced general manager. 
+Your job is to only evaluate how accurately the product owner has given his functional requirements below in form of Story Description. 
+
+Note : Please donot consider any technical requirements. And if you are not sure about anything, try to ask instead of making it look like allegations
 
 ## 1. Basic Information
-- Story Description : {STORY_DESC} 
+{STORY_DESC} 
+Please go through the additional context (if available) and Story description in detail to understand what product owner is looking for.
 
 ## 2. Evaluation Criteria
-For each criterion, answer the guiding questions to evaluate the quality of the story. 
+For each criterion, answer the guiding questions in short and crisp manner, to evaluate the quality of the story. 
 
 ### A. Clarity
 - Is the story summary easy to understand?
@@ -21,14 +27,13 @@ For each criterion, answer the guiding questions to evaluate the quality of the 
 - Does it avoid being too broad or overly generic?
   - **Feedback:** [Provide feedback or suggestions for improvement with examples]
 
-### F. Collaboration and Feedback
-- Does the story reflect input to be taken from relevant stakeholders (e.g., developers, QA, UX)?
-  - **Feedback:** [Provide feedback or suggestions for improvement with examples]
-
-### G. Testability
+### D. Testability
 - Is the story testable, with scenarios and conditions clearly defined for QA?
 - Are edge cases and success conditions clearly stated?
   - **Feedback:** [Provide feedback or suggestions for improvement with examples]
+
+## Evaluation
+Can you evaluate all responses at the end once more and check & make corrections if responses are correct as per the requirement ?  
 
 ## Output format
 

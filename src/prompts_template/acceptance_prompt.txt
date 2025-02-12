@@ -10,6 +10,12 @@ Story description: {STORY_DESC}
 
 Testing Criterias : {TEST_CRIT}
 
+Can you please carefully read all the requirements above and remove any acceptance criteria:
+1. Which is very generic in nature
+2. WHere you have low confidence
+
+Note: Group the similar acceptance criterias in a single and crisp acceptance criterias by summarizing them
+
 ## Output format
 
 Please provide the response in the exact format below without additional code blocks or text. The output will be directly parsed in Python, so ensure it strictly adheres to this format:
