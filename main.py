@@ -62,6 +62,11 @@ async def health_check(request: Request):
           response_model=ResponseFile)
 async def upload_pdf(file: UploadFile = File(...)):
 
+    if file.filename in vectorstores_metadata['filenames_dict'].keys():
+        LOGGER.debug(f"File already exists in vectorstore - {file.filename}")
+        resp = {"vectorstore_id":vectorstores_metadata['filenames_dict'][file.filename]}
+        return resp
+    
     vectorstore_id = str(uuid.uuid4())
     session_directory = f"vec_db/vectorstores/{vectorstore_id}"
     os.makedirs(session_directory, exist_ok=True)
@@ -72,7 +77,8 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     create_vectorstore(pdf_path, session_directory)
     LOGGER.debug(f"Vector store created for file : {file.filename}")
-
+    
+    vectorstores_metadata['filenames_dict'][file.filename] = vectorstore_id
     vectorstores_metadata[vectorstore_id] = session_directory
     save_vectorstore_metadata(vectorstores_metadata)
 

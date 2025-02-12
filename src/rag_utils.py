@@ -20,7 +20,8 @@ def load_vectorstore_metadata():
                 return json.load(f)
     except Exception as e:
         LOGGER.error(f"Failed to load vectorstore metadata: {e}")
-    return {}
+    return {'filenames_dict': {},
+            }
 
 # Save vectorstore metadata
 def save_vectorstore_metadata(metadata):

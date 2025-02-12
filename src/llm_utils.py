@@ -23,7 +23,7 @@ AZUREOPENAI_DEPLOYMENT_NAME = os.environ["AZUREOPENAI_DEPLOYMENT"]
 azllm = AzureChatOpenAI(
     azure_deployment=AZUREOPENAI_DEPLOYMENT_NAME,  # or your deployment
     api_version=API_VERSION,  # or your api version
-    temperature=0.5
+    temperature=0.2
 )
 
 # opllm = ChatOpenAI(
@@ -151,24 +151,41 @@ def acceptance_criteria(query, testing_cases):
         LOGGER.debug(f"Error parsing response: {e}")
         gaps = []
         return False, accept
-    
+
+import threading
+
+def call_and_store(key, func, results, *args):
+    try:
+        flag, result = func(*args)
+        results[key] = result if flag else []
+    except Exception as e:
+        LOGGER.debug(f"Error in {key}: {e}")
+        results[key] = []
+
 def gather_results(query):
 
     LOGGER.debug(f"Query received - {query}")
 
-    gaps_func_flag, func_gaps = requirement_func_gaps(query)
-    gaps_tech_flag, tech_gaps = requirement_tech_gaps(query)
+    results = {}
 
-    test_flag, testing_cases = get_testing_cases(query)
-    accept_flag, accept = acceptance_criteria(query, testing_cases)
+    threads = [
+        threading.Thread(target=call_and_store, args=("func_gaps", requirement_func_gaps, results, query)),
+        threading.Thread(target=call_and_store, args=("tech_gaps", requirement_tech_gaps, results, query)),
+        threading.Thread(target=call_and_store, args=("testing_cases", get_testing_cases, results, query)),
+    ]
 
-    final_response = {
-        "func_gaps": func_gaps,
-        "tech_gaps": tech_gaps,
-        "testing_cases": testing_cases,
-        "accept": accept
-    }
+    # Start all threads
+    for thread in threads:
+        thread.start()
 
-    return final_response
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
+
+    # Now we need to process acceptance criteria which depends on testing_cases
+    accept_flag, accept = acceptance_criteria(query, results.get("testing_cases", []))
+    results["accept"] = accept if accept_flag else []
+
+    return results
 
 
