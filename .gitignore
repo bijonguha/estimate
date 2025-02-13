@@ -173,3 +173,7 @@ cython_debug/
 # Vectordb files
 vec_db/*
 mlruns/*
+artefacts/*
+esti_env/*
+mlartifacts/*
+notebooks/*
