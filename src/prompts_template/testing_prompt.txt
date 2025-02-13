@@ -28,9 +28,9 @@ You job is to very carefully Understand the requirements, the context of the pro
      - **Usability**: Confirm the feature is user-friendly and intuitive.
      - **Compatibility**: Test across different devices, browsers, and screen sizes.
 
-Can you now carefully go through criterias and Please remove any criteria :
-1. which is not necessary here.
-2. Where you have low confidence or just a general comment.
+Note : Can you now carefully go through criterias and Please remove any criteria :
+    1. which is not necessary here as per the nature of story description.
+    2. Where you have low confidence or just a general comment.
 
 2. **Exploratory Testing**:
    - Suggest scenarios to test for unanticipated behaviors, interactions, or errors.
