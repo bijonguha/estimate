@@ -19,7 +19,7 @@ from src.logger import setup_logger
 from src.rag_utils import (create_vectorstore, retrieve_relevant_chunks,
                            load_vectorstore_metadata, save_vectorstore_metadata)
 
-from src.llm_utils import generate_response, generate_structured_response, gather_results, generate_response_for_query
+from src.llm_utils import generate_response, generate_structured_response, gather_results, generate_response_for_query, prompt_guardrails
 
 from src.datamodels import FeatureResponse, QuerySimple, ResponseFile, QueryFeature
 
@@ -183,6 +183,10 @@ async def refine_requirement(input_data : QueryFeature):
 
     return JSONResponse(content=response, status_code=200)
 
+def capitalize_first_case(text):
+    # Replace hyphens with spaces, split into words, then capitalize each word
+    words = text.replace('-', ' ').split()
+    return ' '.join(word.capitalize() for word in words)
         
 @app.post("/estimate_quality/", tags=["LLM Querying"])
 async def estimate_quality(input_data : QuerySimple):
@@ -191,6 +195,32 @@ async def estimate_quality(input_data : QuerySimple):
     feature_details = input_data.query
     vectorstore_id = input_data.vectorstore_id
 
+    guardrail_flag, guardrail_dict = prompt_guardrails(feature_details)
+
+    if guardrail_flag:
+        
+        if guardrail_dict["level_of_detail"] in ["too-short", "too-broad", "vague"]:
+            
+            lod = capitalize_first_case(guardrail_dict["level_of_detail"])
+            text_resp = f"Your story requirement is {lod}. Reason is - {guardrail_dict['reason_for_level_of_detail']}"
+
+            response = {}
+            response['display_text'] = True
+            response['display_text_content'] = text_resp
+            return JSONResponse(content=response, status_code=200)
+        
+        if guardrail_dict["type_of_work_item"] in ["bug", "unrelated"]:
+            
+            tow = capitalize_first_case(guardrail_dict["type_of_work_item"])
+            text_resp = f"Your story requirement is {tow} which is currently not supported. Reason is - {guardrail_dict['reason_for_type_of_work_item']}"
+
+            response = {}
+            response['display_text'] = True
+            response['display_text_content'] = text_resp
+            return JSONResponse(content=response, status_code=200)
+        
+        LOGGER.debug("Guardrails passed")
+        
     context = ""
 
     if vectorstore_id != None and vectorstore_id != "":
@@ -218,6 +248,10 @@ async def estimate_quality(input_data : QuerySimple):
         LOGGER.debug(f"Additional context injected, New query - {feature_details}")
 
     response = gather_results(feature_details)
+
+    # response = {}
+    # response["display_text"] = True
+    # response["display_text_content"] = "This is sample content"
 
     LOGGER.info(f"Final response - {response}")
 

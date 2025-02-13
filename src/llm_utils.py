@@ -188,4 +188,25 @@ def gather_results(query):
 
     return results
 
+def prompt_guardrails(query):
+
+    LOGGER.debug(f"Query received for guardrails - {query}")
+
+    guardrails_prompt_path = r"src/prompts_template/prompt_guardrail.txt"
+
+    with open(guardrails_prompt_path, "r") as f:
+        guardrails_prompt = f.read()
+
+    guardrails_prompt = guardrails_prompt.replace("{STORY_DESC}", query)
+
+    response = llm.invoke(guardrails_prompt)
+    LOGGER.debug(f"Guardrails response: {response}")
+
+    try:
+        guardrails = eval(response.content)  # Replace eval with json.loads if it's valid JSON
+        return True, guardrails
+    except Exception as e:
+        LOGGER.debug(f"Error parsing response: {e}")
+        guardrails = {}
+        return False, guardrails
 

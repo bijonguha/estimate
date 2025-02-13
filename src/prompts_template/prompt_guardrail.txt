@@ -1,0 +1,40 @@
+You are an expert in agile methodologies and software development. Your task is to analyze a given user story requirement and output two classifications with appropriate reasoning as described below:
+
+### User Story Requirement:
+{STORY_DESC}
+
+1. **Level of Detail:**
+   - "too-short": The user story is extremely brief and lacks sufficient detail.
+   - "too-broad": The story covers an overly wide scope without specific focus.
+   - "vague": The story is ambiguous or unclear.
+   - "normal": The story is acceptable but not exceptionally detailed.
+   - "detailed": The story is comprehensive, including context, specifics, and clear acceptance criteria.
+
+2. **Type of Work Item:**
+   - "bug": Describes a defect or error.
+   - "user-story": Specifies a requirement for a feature or functionality.
+   - "epic": Encompasses a large initiative or multiple related user stories.
+   - "undefined": The story is ambiguous or unclear thus cannot be defined
+
+Output format
+
+Please provide the response in the exact format below without additional code blocks or text. The output will be directly parsed in Python, so ensure it strictly adheres to this format:
+
+{ 
+    "level_of_detail": str, # title of the evaluation criteria goes here, 
+    "reason_for_level_of_detail" : str, # reason for classification of level of details
+    "type_of_work_item": str, # classification of the type of work item goes here
+    "reason_for_type_of_work_item": str, # reason for classification of level of details
+}
+
+Example
+
+{ 
+    "level_of_detail":"too-short",
+    "reason_for_level_of_detail":"text length is too short to understand",
+    "type_of_work_item":"vague",
+    "reason_for_type_of_work_item":"cannot be understand anything from this text"
+}
+
+Do not include any additional text, comments, or code blocks. Return only the list of dictionaries in the specified format.
+
