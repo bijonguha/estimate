@@ -16,7 +16,11 @@ You are an expert in agile methodologies and software development. Your task is 
    - "epic": Encompasses a large initiative or multiple related user stories.
    - "undefined": The story is ambiguous or unclear thus cannot be defined
 
-Output format
+## Additional Requirement
+You have to make sure that the story requirement is related to software development and nothing else. If its some random thing not related
+to software development then please give output Type of Work Item as "undefined" and Level of Detail as "vague".
+
+## Output format
 
 Please provide the response in the exact format below without additional code blocks or text. The output will be directly parsed in Python, so ensure it strictly adheres to this format:
 
