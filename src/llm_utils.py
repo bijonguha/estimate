@@ -47,7 +47,7 @@ def generate_response_for_query(query):
     response_full = llm.invoke(query)
     response = response_full.content
     LOGGER.debug(f"Response generated - {response}")
-    return eval(response).get("refined_story", None)
+    return eval(response)
 
 def generate_structured_response(query, context, dm):
     LOGGER.debug(f"Query received - {query} with context - {context}")
