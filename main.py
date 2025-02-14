@@ -181,6 +181,28 @@ async def refine_requirement(input_data : QueryFeature):
 
     response = generate_response_for_query(story_ref_message)
 
+    if response["level_of_detail"] == "vague":
+        
+        lod = "Vague"
+        text_resp = f"Your story requirement is {lod}. Reason is - {response['reason_for_level_of_detail']}"
+
+        response = {}
+        response['display_text'] = True
+        response['display_text_content'] = text_resp
+        response['refined_story'] = text_resp
+        return JSONResponse(content=response, status_code=200)
+    
+    if response["type_of_work_item"] in ["bug", "unrelated"]:
+        
+        tow = capitalize_first_case(response["type_of_work_item"])
+        text_resp = f"Your story requirement is {tow} which is currently not supported. Reason is - {response['reason_for_type_of_work_item']}"
+
+        response = {}
+        response['display_text'] = True
+        response['display_text_content'] = text_resp
+        response['refined_story'] = text_resp
+        return JSONResponse(content=response, status_code=200)
+
     return JSONResponse(content=response, status_code=200)
 
 def capitalize_first_case(text):

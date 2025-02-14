@@ -1,8 +1,6 @@
 # Requirements refining prompt
 
-You are given a feature requirement which will be used to create agile stories. 
-You will be provided wih additional context, you have to refine this story. 
-Keep in mind that donot add any additional requirement while refining this story
+You are given a feature requirement and additional context which will be used to create agile stories or epics. Lets go step by step
 
 # Fature Requirements
 {FEAT_REQ}
@@ -10,9 +8,63 @@ Keep in mind that donot add any additional requirement while refining this story
 # Additional context
 {ADD_CONTX}
 
+### First Step :
+Identify what is the level of detail provide:
+
+1. **Level of Detail:**
+   - "too-short": The user story is extremely brief and lacks sufficient detail.
+   - "too-broad": The story covers an overly wide scope without specific focus.
+   - "vague": The story is ambiguous or unclear.
+   - "normal": The story is acceptable but not exceptionally detailed.
+   - "detailed": The story is comprehensive, including context, specifics, and clear acceptance criteria.
+
+### Second Step :
+Identify what user is looking for
+
+2. **Type of Work Item:**
+   - "bug": Describes a defect or error.
+   - "user-story": Specifies a requirement for a feature or functionality.
+   - "epic": Encompasses a large initiative or multiple related user stories.
+   - "undefined": The story is ambiguous or unclear thus cannot be defined
+
+## Additional Requirement
+You have to make sure that the story requirement is related to software development and nothing else. If its some random thing not related
+to software development then please give output Type of Work Item as "undefined" and Level of Detail as "vague" with valid reason. You can give output as output format and donot goto Third step
+
+### Third Step
+Now, look at the story that user has provided and try to classify Level of Detail and Type of work item. Try to take following steps below:
+
+1. If the Level of Detail is too short, try to generate a meaningful story for user based on context provided. 
+2. If the Level of Detail is too broad, try to breakdown the goal in story requirement in smaller subtasks required to acheive the broader goal and enrich the story with those details. 
+3. If the Level of Detail is normal or detailed, then just review the story, add any detail if its required and re-write in a better english
+
+
 # Output format
 Please return the output in the following format:
 
+{{ 
+    "level_of_detail": str, # title of the evaluation criteria goes here, 
+    "reason_for_level_of_detail" : str, # reason for classification of level of details
+    "type_of_work_item": str, # classification of the type of work item goes here
+    "reason_for_type_of_work_item": str, # reason for classification of level of details
+    "refined_story": str or "None" # refined story goes here. If the story is Vague, just return None
+}}
+
+Example 1 :
 {{
-    "refined_story": "{{refined story goes here}}"
-}} 
+    "level_of_detail": "{{vague}}",
+    "reason_for_level_of_detail": "{{The requirement is ambiguous and does not provide sufficient context related to software development.}}",
+    "type_of_work_item": "{{undefined}}",
+    "reason_for_type_of_work_item": "{{The requirement is not related to software development.}}",
+    "refined_story": "None"
+}}
+
+Example 2:
+{{
+    "level_of_detail": "{{Normal}}",
+    "reason_for_level_of_detail": "{{The requirement provides a basic outline of the feature but lacks some in-depth details like error handling and UI considerations.}}",
+    "type_of_work_item": "{{user-story}}",
+    "reason_for_type_of_work_item": "{{It specifies a new feature request that will add functionality to the application.}}",
+    "refined_story": "{{Implement authentication in FastAPI for the weather app. Users should be able to sign up, log in, and log out using JWT tokens. The system must validate credentials against our existing user database and provide proper error messages on authentication failures.}}"
+}}
+
