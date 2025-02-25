@@ -177,3 +177,4 @@ artefacts/*
 esti_env/*
 mlartifacts/*
 notebooks/*
+venv/*
