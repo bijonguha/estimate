@@ -6,7 +6,7 @@ You are an expert in agile methodologies and software development. Your task is 
 1. **Level of Detail:**
    - "too-short": The user story is extremely brief and lacks sufficient detail.
    - "too-broad": The story covers an overly wide scope without specific focus.
-   - "vague": The story is ambiguous or unclear.
+   - "vague": The story is ambiguous or unclear or this is not a user story but something else.
    - "normal": The story is acceptable but not exceptionally detailed.
    - "detailed": The story is comprehensive, including context, specifics, and clear acceptance criteria.
 
@@ -14,7 +14,7 @@ You are an expert in agile methodologies and software development. Your task is 
    - "bug": Describes a defect or error.
    - "user-story": Specifies a requirement for a feature or functionality.
    - "epic": Encompasses a large initiative or multiple related user stories.
-   - "undefined": The story is ambiguous or unclear thus cannot be defined
+   - "undefined": The story is ambiguous or this is not a user story but something else or unclear thus cannot be defined 
 
 ## Additional Requirement
 You have to make sure that the story requirement is related to software development and nothing else. If its some random thing not related

@@ -12,7 +12,8 @@ Please follow the given instructions below.
 - **Why is this feature needed? What problem does it solve?**
 
 ## Generation of Test Cases
-You job is to very carefully Understand the requirements, the context of the project and generate testing scenarios and test cases
+You job is to very carefully Understand the requirements, the context of the project, if there are testing scenarios already mentioned and generate additional testing scenarios and test cases which are not mentioned in the Story.
+There is a possibility that some of the testing scenarios are already part of Story Description, in that case please identify them and pick them up 
 
 ## **Guidelines**
 

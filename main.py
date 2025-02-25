@@ -34,8 +34,7 @@ def get_app() -> FastAPI:
     try:
         fast_app = FastAPI(
                 title="EstiMATE",
-                description="A simple FastAPI backend for easy estimation of Software Requirements",
-                root_path="/api/"
+                description="A simple FastAPI backend for easy estimation of Software Requirements"
                 )
         return fast_app
     except Exception as e:

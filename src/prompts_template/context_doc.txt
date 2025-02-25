@@ -1,7 +1,10 @@
-Story Description - {STORY_DESC}
+{STORY_DESC}
 
-## Additional Context from the project
+You are being provided this extra context from the project document.
 
-You are being provided this extra context from the project document. Please validate your given suggestions and feedback against these information wherever applicable
+## Additional Context from the project document
 
 {ADDITIONAL_CONTEXT}
+
+Can you try to relate the given story with the context provided ? How the given story can fit into the scheme and information provided by this additional ontexts.
+Please validate your given suggestions and feedback against these information wherever applicable
